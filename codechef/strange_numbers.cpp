@@ -5,20 +5,12 @@ using namespace std;
 #define fo(i,n) for(i=0;i<n;i++)
 #define Fo(i,k,n) for(i=k;i<n;i++)
 
-template<typename... T>
-void read(T&... args) {
-    ((cin>>args), ...);
-}
-
-template<typename... T>
-void write(T&&... args) {
-    ((cout<<args<<" "), ...);
-}
-
 int main() {
     int T;
     cin>>T;
     while(T--) {
+        int x,k;
+        cin>>x>>k;
         
     }
     return 0;
