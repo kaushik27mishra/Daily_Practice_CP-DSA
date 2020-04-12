@@ -10,6 +10,8 @@ int main() {
     cin>>T;
     while(T--) {
         int x,k;
+        // x is the number of divisors of let's say a number A 
+        // k is the number of prime numbers in x
         cin>>x>>k;
         
     }

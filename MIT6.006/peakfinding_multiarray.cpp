@@ -1,50 +1,51 @@
-//greedy ascent algotrithm
-#include <bits/stdc++.h>
-using namespace std;
+#include <bits/stdc++.h> 
+using namespace std; 
 
-#define deb(x) cout<<#x<<" "<<x<<endl;
-#define fo(i,n) for(i=0;i<n;i++)
-#define Fo(i,k,n) for(i=k;i<n;i++)
-#define wt while(true)
+const int MAX = 100; 
 
-template<typename... T>
-void read(T&... args) {
-    ((cin>>args), ...);
-}
+int findMax(int arr[][MAX], int rows, int mid, int& max) 
+{ 
+	int max_index = 0; 
+	for (int i = 0; i < rows; i++) { 
+		if (max < arr[i][mid]) { 
+			max = arr[i][mid]; 
+			max_index = i; 
+		} 
+	} 
+	return max_index; 
+} 
 
-template<typename... T>
-void write(T&&... args) {
-    ((cout<<args<<" "), ...);
-}
+int findPeakRec(int arr[][MAX], int rows, int columns, 
+				int mid) 
+{ 
+	int max = 0; 
+	int max_index = findMax(arr, rows, mid, max); 
 
-int peakfinding(vector<vector <int> > &v) {
-    int a=v.size(),b=v[0].size();
-    int x(b/2), y(a/2);
-    wt{
-        if((x>=0 && y>=0) && (v[x][y] < v[x][y+1]) ) {
-            ++y;
-        }
-        else if( (x>=0 && y>=0) && (v[x][y] < v[x][y-1]) ) {
-            --y;
-        }
+	if (mid == 0 || mid == columns - 1) 
+		return max; 
 
-    }
-}
+	if (max >= arr[max_index][mid - 1] && max >= arr[max_index][mid + 1]) 
+		return max; 
 
-int main() {
-    int n,m,i(0),j(0); 
-    read(n,m);
-    // deb(n);
-    // deb(m);
-    vector< vector <int> > arr(n,vector <int> (m,0));
+	if (max < arr[max_index][mid - 1]) 
+		return findPeakRec(arr, rows, columns, mid - ceil((double)mid / 2)); 
 
-    fo(i,n)
-        fo(j,m)
-            cin>>arr[i][j];
+	return findPeakRec(arr, rows, columns, mid + ceil((double)mid / 2)); 
+} 
 
-    cout<<peakfinding(arr);
+int findPeak(int arr[][MAX], int rows, int columns) 
+{ 
+	return findPeakRec(arr, rows, columns, columns / 2); 
+} 
 
-    return 0;
-}
+int main() 
+{ 
+	int arr[][MAX] = { { 10, 8, 10, 10 }, 
+					{ 14, 13, 12, 11 }, 
+					{ 15, 9, 11, 21 }, 
+					{ 16, 17, 19, 20 } }; 
 
-
+	int rows = 4, columns = 4; 
+	cout << findPeak(arr, rows, columns); 
+	return 0; 
+} 
