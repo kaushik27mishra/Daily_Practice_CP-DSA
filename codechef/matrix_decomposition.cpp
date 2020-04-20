@@ -34,20 +34,13 @@ int main() {
     while(T--) {
         ll n,a(0);
         cin>>n>>a;
-        ll res(1),p=-a;
-        for(int i=1;n>=i;i++) {
-            if(i==1) {
-                a*=a;
-            }
-            else {
-                a=power(res,2*i-1);
-            }
-            if(i!=n)
-                res=(res*a)%mod, p+=a;
-            else
-                p+=a;
+        ll ans(0),p(1);
+        for(ll i=1;n>=i;i++) {
+            p=power(a,((2*i)-1));
+            a=((a%mod)*(p%mod))%mod;
+            ans=((ans%mod)+(p%mod))%mod;
         }
-        cout<<p<<endl;
+        cout<<ans<<endl;
     }
 
     return 0;
