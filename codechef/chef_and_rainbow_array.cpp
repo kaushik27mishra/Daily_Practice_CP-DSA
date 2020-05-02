@@ -28,17 +28,27 @@ int main() {
         else
             mid=(n/2)-1;
 
-        deb(mid);
         bool flag = true;
         fo(i,n) {
             cin>>v[i];
             if((i<=mid) && i>=1) {
-                if((v[i]-v[i-1])!=1 || (v[i]-v[i-1])!=0)
+                if((v[i]-v[(i-1)])!=1 || (v[i]-v[(i-1)])!=0) {
                     flag=false;
+                    cout<<v[i]<<" "<<i<<endl;
+                }
             }
-            else {                                
-                if(v[i]!=v[i-mid])
-                    flag=false;
+            else {     
+                if(n%2==1)                           
+                    if(v[i]!=v[(n-i-1)]) {
+                        flag=false;
+                        cout<<i<<endl;
+                    }
+                else{
+                    if(v[i]!=v[(n-i)])
+                        flag=false;
+                        cout<<i<<endl;
+                }                            
+
             }
         }
 

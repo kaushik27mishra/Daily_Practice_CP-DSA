@@ -1,49 +1,27 @@
-#include <bits/stdc++.h>
+#include <cstdio>
+#include <cstring>
+#include <algorithm>
+#include <stack>
 using namespace std;
 
-#define deb(x) cout<<#x<<" "<<x<<endl;
-#define fo(i,n) for(int i=0;i<n;i++)
-#define Fo(i,k,n) for(int i=k;i<=n;i++)
-#define N 101
-#define ll long long
-#define endl "\n"
-#define mod 1000000007
-#define pb push_back
-#define F first
-#define S second
+int a[1111], n;
 
 int main() {
-    stack<int> o;
-    stack<int> u;
-    int n;
-    cin>>n;
-    bool flag=true;
-    int count=1;
-    int a;
+  while (cin>>n && n != 0) {
+    for (int i = 0; i < n; i++) cin>>a[i];
 
-    while(cin>>a && a!=0){
-        if(count==a){
-            o.push(a);
-            count++;
-        }
-        else {
-            u.push(a);
-        }
+    int k = 0, i = 0;
+
+    stack<int> st;
+
+    while (i < n) {
+      while (st.size() && st.top() == k + 1) k++, st.pop();
+      if (a[i] != k + 1) st.push(a[i]);
+      else k++;
+      i++;
     }
-
-    while(!u.empty()) {
-        if(u.top()==(o.top()+1)){
-            int a = u.top();
-            u.pop();
-            o.push(a);
-        }
-        else{
-            flag=false;
-        }
-    }
-
-    if(flag) cout<<"yes"<<endl;
-    else cout<<"no"<<endl;
-
-    return 0;
+    
+    while (st.size() && st.top() == k + 1) k++, st.pop();
+    puts(k == n ? "yes" : "no");
+  }
 }
