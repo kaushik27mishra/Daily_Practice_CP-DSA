@@ -1,19 +1,20 @@
+//time complexity O(1) for each query
 # include <bits/stdc++.h>
 using namespace std;
-ifstream f("data.in");
+
 int A[1000], B[1000], auxB, n, m, Aelements, i, j, Left, Right, X, nrQueries;
 int main ()
 {
-    f>>Aelements;
+    cin>>Aelements;
 
     for (i=1; i<=Aelements; ++i)
-        f>>A[i];
+        cin>>A[i];
 
     // a=a+b ==  a+=b
 
-    f>>nrQueries;
+    cin>>nrQueries;
     for (j=1; j<=nrQueries; ++j) {
-        f>>Left>>Right>>X;
+        cin>>Left>>Right>>X;
         B[Left]+=X;
         B[Right+1]-=X;
     }
