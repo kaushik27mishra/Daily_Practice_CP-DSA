@@ -12,16 +12,13 @@ using namespace std;
 #define F first
 #define S second
 
-int isolationCenter(int arr[],int c) {
+int queueLeft(int arr[],int c) {
     int A[26];
     memcpy(A, arr, 26 * sizeof(int));
     int count=0;
-    fo(i,c) {
-        fo(i,26) {
-            if(A[i]>0) {
-                --A[i];
-                count++;
-            }
+    fo(i,26) {
+        if(A[i]>c) {
+            count= count + (A[i]-c);
         }
     }
 
@@ -48,7 +45,7 @@ int main() {
 
         fo(i,q) {
             cin>>c;
-            cout<<n-isolationCenter(countofvirus,c)<<endl;
+            cout<<queueLeft(countofvirus,c)<<endl;
         }
 
     }
