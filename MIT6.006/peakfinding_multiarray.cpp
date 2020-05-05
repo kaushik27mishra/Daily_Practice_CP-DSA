@@ -15,8 +15,7 @@ int findMax(int arr[][MAX], int rows, int mid, int& max)
 	return max_index; 
 } 
 
-int findPeakRec(int arr[][MAX], int rows, int columns, 
-				int mid) 
+int findPeakRec(int arr[][MAX], int rows, int columns, int mid) 
 { 
 	int max = 0; 
 	int max_index = findMax(arr, rows, mid, max); 
