@@ -21,7 +21,7 @@ ll binomialCoeff(int n, int k)
   
     for (int i = 0; i < k; ++i)  
     {  
-        res *= (n - i);  
+        res = res* (n - i);  
         res /= (i + 1);  
     }  
   
