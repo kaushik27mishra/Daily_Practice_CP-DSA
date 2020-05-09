@@ -45,6 +45,19 @@ void Delete(Node **pointerToHead, int n) {
     temp1->next=temp2->next;
     free(temp2);
 }
+
+void reverse(Node** head) {
+    Node *current,*prev,*next;
+    current=(*head);
+    prev=NULL;
+    while(current!=NULL) {
+        next=current->next;
+        current->next=prev;
+        prev=current;
+        current=next;
+    }
+    (*head)=prev;
+}
 // void insert(Node **pointerToHead,int x) { 
     // Inserts an element at the beginning of the linked list
     // Node *temp= new Node();
@@ -57,11 +70,24 @@ void Delete(Node **pointerToHead, int n) {
 // }
 // 
 void print(Node* head) {
-    while(head!=NULL) {
-        cout<<head->data<<" ";
-        head=head->next;
+    if(head==NULL) {
+        return;
     }
-    cout<<"\n";
+    cout<<head->data<<" ";
+    print(head->next);
+    // while(head!=NULL) {
+        // cout<<head->data<<" ";
+        // head=head->next;
+    // }
+    // cout<<"\n";
+}
+
+void printReverse(Node *head) {
+    if(head==NULL) {
+        return;
+    }
+    print(head->next);
+    cout<<head->data<<" ";
 }
 
 int main() {
@@ -71,7 +97,10 @@ int main() {
     insert(&head,4,1);
     insert(&head,4,3);
     print(head);
-    Delete(&head,2);
-    print(head);
-
+    cout<<"\n";
+    reverse(&head);
+    // Delete(&head,2);
+    printReverse(head);
+    cout<<"\n";
+    return 0;
 }
