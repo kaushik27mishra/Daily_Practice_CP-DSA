@@ -6,8 +6,9 @@ class Node {
     int data;
     Node* next;
 };
+Node *head;
 
-void insert(Node **pointerToHead,int x,int n) {
+void insert(int x,int n) {
     Node *temp1 = new Node();
 
     temp1->data=x;
@@ -15,12 +16,12 @@ void insert(Node **pointerToHead,int x,int n) {
     temp1->next=NULL;
 
     if(n==1) {
-        temp1->next= (*pointerToHead);
-        (*pointerToHead)=temp1;
+        temp1->next= head;
+        head=temp1;
         return;
     }
 
-    Node *temp2 = (*pointerToHead);
+    Node *temp2 = head;
     for(int i=0;i<n-2;i++) {
         temp2=temp2->next;
     } 
@@ -29,11 +30,11 @@ void insert(Node **pointerToHead,int x,int n) {
     temp2->next=temp1;
 }
 
-void Delete(Node **pointerToHead, int n) {
-    Node *temp1= (*pointerToHead);
+void Delete(int n) {
+    Node *temp1= head;
 
     if(n==1) {
-        (*pointerToHead)=temp1->next;
+        head=temp1->next;
         free(temp1);
         return;
     }
@@ -46,30 +47,18 @@ void Delete(Node **pointerToHead, int n) {
     free(temp2);
 }
 
-void reverse(Node** head) {
-    Node *current,*prev,*next;
-    current=(*head);
-    prev=NULL;
-    while(current!=NULL) {
-        next=current->next;
-        current->next=prev;
-        prev=current;
-        current=next;
+void reverse(Node *p) {
+    if(p->next==NULL) {
+        head=p;
+        return;
     }
-    (*head)=prev;
+    reverse(p->next);
+    
+    Node *q=p->next;
+    q->next=p;
+    p->next=NULL;
 }
 
-// void insert(Node **pointerToHead,int x) { 
-    // Inserts an element at the beginning of the linked list
-    // Node *temp= new Node();
-// 
-    // temp->data=x;
-// 
-    // temp->next= *pointerToHead;
-// 
-    // *pointerToHead=temp;
-// }
-// 
 void print(Node* head) {
     if(head==NULL) {
         return;
@@ -92,15 +81,14 @@ void printReverse(Node *head) {
 }
 
 int main() {
-    Node* head=NULL;
-    insert(&head,2,1);
-    insert(&head,3,2);
-    insert(&head,4,1);
-    insert(&head,4,3);
+    head=NULL;
+    insert(2,1);
+    insert(3,2);
+    insert(4,1);
+    insert(4,3);
     print(head);
     cout<<"\n";
-    reverse(&head);
-    // Delete(&head,2);
+    // Delete(2);
     printReverse(head);
     cout<<"\n";
     return 0;
