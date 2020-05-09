@@ -89,6 +89,7 @@ int main() {
     print(head);
     cout<<"\n";
     // Delete(2);
+    reverse(head);
     printReverse(head);
     cout<<"\n";
     return 0;
