@@ -58,6 +58,28 @@ int FindMax(BstNode* root) {
     return current->data;
 }
 
+void levelOrder(BstNode* root) {
+    if(root==NULL) return;
+    queue<BstNode*>Q;
+    Q.push(root);
+    while(!Q.empty()) {
+        BstNode* current = Q.front();
+        cout<<current->data<<" ";
+        if(current->left!=NULL) Q.push(current->left);
+        if(current->right!=NULL) Q.push(current->right);
+        Q.pop();
+    }
+    cout<<endl;
+}
+
+int FindHeight(BstNode* root) {
+    if(root==NULL) {
+        return -1;
+    }    
+    
+    return max(FindHeight(root->left),FindHeight(root->right)) + 1;
+}
+
 int main() {
     BstNode* root=NULL;     
     root = Insert(root,15);
@@ -66,11 +88,12 @@ int main() {
     root = Insert(root,25);    
     root = Insert(root,8);    
     root = Insert(root,12);    
-    cout<<FindMin(root)<<endl;
-    cout<<FindMax(root)<<endl;
-    int n;
-    cin>>n;
-    if(Search(root,n)) cout<<"Found"<<endl;
-    else cout<<"Not found"<<endl;
+    // cout<<FindMin(root)<<endl;
+    // cout<<FindMax(root)<<endl;
+    levelOrder(root);
+    // int n;
+    // cin>>n;
+    // if(Search(root,n)) cout<<"Found"<<endl;
+    // else cout<<"Not found"<<endl;
     return 0;
 }
