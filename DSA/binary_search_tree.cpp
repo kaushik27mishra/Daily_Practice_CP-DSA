@@ -36,6 +36,28 @@ bool Search(BstNode* root,int data) {
     else return Search(root->right,data);
 }
 
+int FindMin(BstNode* root) {
+    if(root==NULL) {
+        return -1;
+    }
+    BstNode* current = root;
+    while(current->left!=NULL) {
+        current=current->left;
+    }
+    return current->data;
+}
+
+int FindMax(BstNode* root) {
+    if(root==NULL) {
+        return -1;
+    }
+    BstNode* current = root;
+    while(current->right!=NULL) {
+        current=current->right;
+    }
+    return current->data;
+}
+
 int main() {
     BstNode* root=NULL;     
     root = Insert(root,15);
@@ -44,6 +66,8 @@ int main() {
     root = Insert(root,25);    
     root = Insert(root,8);    
     root = Insert(root,12);    
+    cout<<FindMin(root)<<endl;
+    cout<<FindMax(root)<<endl;
     int n;
     cin>>n;
     if(Search(root,n)) cout<<"Found"<<endl;
