@@ -72,12 +72,63 @@ void levelOrder(BstNode* root) {
     cout<<endl;
 }
 
+void Preorder(BstNode* root) {
+    // root left right
+    if(root==NULL) return;
+    cout<<root->data<<" ";
+    Preorder(root->left);
+    Preorder(root->right);
+}
+
+void Inorder(BstNode* root) {
+    // left root data
+    if(root==NULL) return;
+    Inorder(root->left);
+    cout<<root->data<<" ";
+    Inorder(root->right);
+}
+
+void Postorder(BstNode* root) {
+    // left right root
+    if(root==NULL) return;
+    Postorder(root->left);
+    Postorder(root->right);
+    cout<<root->data<<" ";
+}
+
 int FindHeight(BstNode* root) {
     if(root==NULL) {
         return -1;
     }    
     
     return max(FindHeight(root->left),FindHeight(root->right)) + 1;
+}
+
+bool IsSubtreeGreater(BstNode* root,int value) {
+    if(root==NULL) return true;
+    if(root->data >= value && IsSubtreeGreater(root->left,value) && IsSubtreeGreater(root->right,value)) {
+        return true;
+    }
+    else return false;
+
+}
+
+bool IsSubtreeLesser(BstNode* root,int value) {
+    if(root==NULL) return true;
+    if(root->data <= value && IsSubtreeLesser(root->left,value) && IsSubtreeLesser(root->right,value)) {
+        return true;
+    }
+    else return false;
+
+}
+
+bool isBinarySearchTree(BstNode* root) {
+    if(root==NULL) return true;
+
+    if(IsSubtreeLesser(root->left,root->data) && IsSubtreeGreater(root->right,root->data) && isBinarySearchTree(root->left) && isBinarySearchTree(root->right))
+        return true;
+    else 
+        return false;
 }
 
 int main() {
@@ -91,6 +142,7 @@ int main() {
     // cout<<FindMin(root)<<endl;
     // cout<<FindMax(root)<<endl;
     levelOrder(root);
+    // Preorder(root);
     // int n;
     // cin>>n;
     // if(Search(root,n)) cout<<"Found"<<endl;
