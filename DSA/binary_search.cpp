@@ -15,11 +15,12 @@ using namespace std;
 int binarySearch(long int arr[],int n, int a) {
     int left=0,right=n-1,mid,result=-1;
     while(left<=right) {
-        mid=(left+right)/2;
+        mid=left+(right-left)/2;
 
         if(arr[mid]==a) {
             result=mid;
-            right=mid-1;
+            right=mid-1; //for finding first occurence
+            // left = mid +1; for finding last occurence
         }
 
         if(arr[mid]>a) right=mid-1;
