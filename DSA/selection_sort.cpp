@@ -1,3 +1,8 @@
+// Time complexity
+// best case O(n^2) -> for sorted array
+// worst case o(n^2) -> for reverse sorted array
+// average case O(n^2) 
+
 #include <bits/stdc++.h>
 using namespace std;
 
