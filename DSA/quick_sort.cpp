@@ -28,8 +28,6 @@ int partion(int arr[],int start,int end) {
 
 void quickSort(int arr[],int start,int end) {
     if(start<end) {
-        int pivotIndex=rand()%(end-start);
-        swap(arr[pivotIndex],arr[end]);
         int pindex = partion(arr,start,end);
         quickSort(arr,start,pindex-1);
         quickSort(arr,pindex+1,end);
