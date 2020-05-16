@@ -12,11 +12,16 @@ using namespace std;
 #define F first
 #define S second
 
+ll calc(ll n) {
+
+    return (n*n*(n*n-1)-8-24-(n-4)*4*4-16-(n-4)*24-(n-4)*(n-4)*8)/2;  
+}
+
 int main() {
-    int T;
-    cin>>T;
-    while(T--) {
-        
+    int n;
+    cin>>n;
+    for(int i=1;i<=n;i++) {
+        cout<<calc((ll)i)<<endl;
     }
 
     return 0;
