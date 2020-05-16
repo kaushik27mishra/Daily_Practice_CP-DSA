@@ -5,6 +5,8 @@
 
 //Space complexity O(n)
 
+// stable sorting algorithm
+
 #include <bits/stdc++.h>
 using namespace std;
 
