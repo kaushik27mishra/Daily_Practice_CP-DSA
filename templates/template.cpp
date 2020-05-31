@@ -11,6 +11,10 @@ using namespace std;
 #define pb push_back
 #define F first
 #define S second
+#define lb lower_bound
+#define ub upper_bound
+#define all(x) x.begin(), x.end()
+typedef vector<int> vi;
 
 int main() {
     int T;
