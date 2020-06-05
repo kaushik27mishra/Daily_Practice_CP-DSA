@@ -20,7 +20,7 @@ int main() {
 
     int n,m,x;
     cin>>n>>m;
-    multiset<int,greater<int>> tickets;
+    multiset<int,greater<int>> tickets; // descending order
     vi customers(m);
     for(int i=0;i<n;i++) {
         cin>>x;
@@ -29,11 +29,12 @@ int main() {
 
     for(int i=0;i<m;i++) {
         cin>>customers[i];
+        // lower biund will return the next smallest element while using with a multiset sort in descending order
         auto itr=tickets.lower_bound(customers[i]);
         if(itr==tickets.end()) {
             cout<<"-1\n"<<endl;
         }
-        else {
+        else {  
             cout<<*itr<<endl;
             tickets.erase(itr);
         }            

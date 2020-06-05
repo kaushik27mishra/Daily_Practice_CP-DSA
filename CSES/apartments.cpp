@@ -21,6 +21,7 @@ int main() {
     for(int i=0;i<m;i++) cin>>apr[i];
     sort(appl.begin(),appl.end());
     sort(apr.begin(),apr.end());    
+    
     while(papr<m && pappl<n) {
         if(apr[papr]>=appl[pappl]-k && apr[papr]<=appl[pappl]+k) {
             ans++;
