@@ -1,39 +1,32 @@
 #include <bits/stdc++.h>
+#define lli long long int
+#define li long int
+#define ld long double
 using namespace std;
+const lli mod = 1e9 + 7;
 
-#define deb(x) cout<<#x<<" "<<x<<endl;
-#define fo(i,n) for(int i=0;i<n;i++)
-#define Fo(i,k,n) for(int i=k;i<n;i++)
-#define N 101
-#define ll long long
-#define endl "\n"
-#define mod 1000000007
-#define pb push_back
-#define F first
-#define S second
-#define mp make_pair
-#define lb lower_bound
-#define ub upper_bound
-#define all(x) x.begin(), x.end()
-typedef vector<int> vi;
-
-int main() {
-    int n,a,b,ans(0),s(0);
-    cin>>n;
-    vector<tuple<int,int>> movies(n);
-    for(int i=0;i<n;i++) {
-        cin>>a>>b;
-        movies[i]={a,b};
-    }
-
-    sort(all(movies));
-    for(auto z : movies) {
-        tie(a, b) = z;
-        if(b>=s) {
-            s=b;
-            ans++;
-        }
-    }
-    cout<<ans<<endl;
-    return 0;
+int main()
+{
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	int n, x, y, curr_end = 0, total = 0;
+	vector<pair<int, int>> arr;
+	cin >> n;
+	while (n--)
+	{
+		cin >> x >> y;
+		arr.push_back(make_pair(y, x));
+	}
+	// sorting by ending times
+	sort(arr.begin(), arr.end());
+	for (auto ele : arr)
+	{
+		if (ele.second >= curr_end)
+		{
+			curr_end = ele.first;
+			total++;
+		}
+	}
+	cout << total<<endl;
+	return 0;
 }
