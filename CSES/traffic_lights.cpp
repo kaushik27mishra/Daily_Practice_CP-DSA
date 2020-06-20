@@ -19,19 +19,18 @@ typedef vector<int> vi;
 
 int main() {
     ios_base::sync_with_stdio(false);
-	cin.tie(NULL);
     
-    int n,x,a;
+    ll n,x,a;
     cin>>x>>n;
-    set<int> points={0,x};
-    multiset<int> lengths={x};
-    for(int i=0;i<n;i++) {
+    set<ll> points={0,x};
+    multiset<ll> lengths={x};
+    for(ll i=0;i<n;i++) {
         cin>>a;
-        auto itr = lower_bound(points.begin(),points.end(),a);
+        auto itr = upper_bound(points.begin(),points.end(),a);
         int left= *prev(itr);
         int right= *itr;
-        points.insert(a);
-		lengths.erase(lengths.find(right - left));
+        points.insert(itr,a);
+		lengths.erase(find(lengths.begin(),lengths.end(),right - left));
         lengths.insert(right-a);
         lengths.insert(a-left);
         cout<<*lengths.rbegin()<<" ";
