@@ -10,8 +10,9 @@ const int N = 2e5 + 5;
 int n;
 int a[N];
 
-int main()
+int32_t main()
 {
+	IOS;
 	int t;
 	cin >> t;
 	while(t--)
@@ -22,12 +23,12 @@ int main()
 		{
 			cin >> a[i];
 			if(a[i] % 2)
-				odd.push_back(i);
+				odd.push_back(a[i]);
 			else
-				even.push_back(i);
+				even.push_back(a[i]);
 		}
 		vector< pair< int, int > > ans;
-		for(int i = 0; i + 1 < odd.size(); i += 2)
+		for(int i = 0; i+1<odd.size(); i += 2)
 			ans.push_back({odd[i], odd[i + 1]});
 		for(int i = 0; i + 1 < even.size(); i += 2)
 			ans.push_back({even[i], even[i + 1]});
