@@ -17,15 +17,36 @@ using namespace std;
 #define all(x) x.begin(), x.end()
 typedef vector<int> vi;
 
-void delete_mid(stack<int> &s, int k) {
-    if(k==1) {
-        s.pop();
+void insert(stack<int> &s,int value) {
+
+    if(s.size()==0) {
+        s.push(value);
         return;
     }
+    
+    if(s.top()<=value) {
+        s.push(value);
+        return;
+    }
+    else {
+        int temp=s.top();
+        s.pop();
+        insert(s,value);
+        s.push(temp);
+    }
+}
+
+void Sort(stack<int> &s) {
+    if(s.size()==1) {
+        return;
+    }
+
     int temp=s.top();
     s.pop();
-    delete_mid(s,k-1);
-    s.push(temp);
+    Sort(s);
+
+    insert(s,temp);
+    return;
 }
 
 int main() {
@@ -35,15 +56,8 @@ int main() {
     s.push(10);
     s.push(2);
     s.push(12);
-    s.push(6);
-    int k;
-    if(s.size()%2==1) {
-        k=(s.size()+1)/2;
-    }
-    else {
-        k=(s.size()/2)+1;
-    }
-    delete_mid(s,k);
+
+    Sort(s);
 
     while(s.size()!=0) {
         cout<<s.top()<<endl;
