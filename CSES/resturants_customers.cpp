@@ -19,16 +19,16 @@ typedef vector<int> vi;
 
 int main() {
   int n, x, y, s = 0;
-  priority_queue<tuple<int, bool>> q;
+  priority_queue<tuple<int, int>> q;
   cin >> n;
   for (int i = 0; i < n; i++) {
     cin >> x >> y;
-    q.push({-x, true});
-    q.push({-y, false});
+    q.push({-x, 1});
+    q.push({-y, -1});
   }
   x = 0;
   while (!q.empty()) {
-    x += get<1>(q.top()) ? 1 : -1;
+    x += get<1>(q.top());
     q.pop();
     s = max(s, x);
   }
