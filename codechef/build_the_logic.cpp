@@ -11,6 +11,7 @@ ll pattern(int n) {
         return (ll)n*(n)/2;
     }
 }
+
 int main() {
     int T,n;
     cin>>T;
