@@ -1,5 +1,6 @@
 class Solution {
 public:
+    // time complexity -> O(n) and space complexity is O(1)
     int findDuplicate(vector<int>& nums) {
         if (nums.size() > 1)
 	    {
