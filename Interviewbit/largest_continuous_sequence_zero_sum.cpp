@@ -1,51 +1,22 @@
-struct Pair{
-    int start;
-    int end;
-};
-vector<int> Solution::lszero(vector<int> &A) {
-    unordered_map<int, Pair> myMap;
-    int sum = 0;
-    for(int i = 0; i < A.size(); i++){
-        sum = sum+A[i];
-        if(myMap.find(sum) != myMap.end()){
-            myMap[sum].end = i;
-        }
+vector<int> Solution::lszero(vector<int> &a) {
+    unordered_map<long long,int>m;
+    long long s = 0;
+    int ans=0,ind,ind1;
+    int n=a.size();
+    m[0] = 0;
+    for(int i=1;i<=n;i++) {
+        s += a[i-1];
+        if(m.find(s)==m.end()) m[s] = i;
         else{
-            myMap[sum].start = i;
-            myMap[sum].end = -1;
-        }
-    }
-    
-    int min = A.size(), max = 0;
-    auto it = myMap.begin();
-    while(it != myMap.end()){
-        if(it->first == 0){
-            if(it->second.end != -1){
-                max = it->second.end;
-            }
-            else{
-                max = it->second.start;
-            }
-            min = -1;
-        }
-        else if(it->second.end != -1){
-            if((max-min) < (it->second.end-it->second.start)){
-                max = it->second.end;
-                min = it->second.start;
-            }
-            else if(((max-min) == (it->second.end-it->second.start)) &&
-                    min > it->second.start){
-                max = it->second.end;
-                min = it->second.start;
+            if(ans < i-m[s]) {
+                ans = i-m[s];
+                ind = m[s]+1;
+                ind1 = i;
             }
         }
-        it++;    
     }
-    
-    vector<int> sol;
-    for(int i = min+1; i <= max; i++){
-        sol.push_back(A[i]);
-    }
-    
-    return sol;
+    vector<int>an;
+    if(ans==0) return an;
+    for(int i=ind;i<=ind1;i++) an.push_back(a[i-1]);
+    return an;
 }
