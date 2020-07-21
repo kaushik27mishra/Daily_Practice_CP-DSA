@@ -29,9 +29,9 @@ int knapsack(int wt[],int val[],int w,int n) {
 }
 
 int main() {
-    int val[] = { 60, 100, 120 }; 
-    int wt[] = { 10, 20, 30 }; 
-    int W = 50;
+    int val[] = {10, 30, 20}; 
+    int wt[] = {5, 10, 15};; 
+    int W = 100;
     cout << knapsack(wt, val,W, 3)<<endl;  
     return 0;
 }
