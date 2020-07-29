@@ -24,3 +24,22 @@ public:
         return head;
     }
 };
+
+/*
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        if(head==NULL || head->next==NULL )
+            return head;
+        ListNode *temp=head;
+        head=reverseList(head->next);
+        ListNode* tail=head;
+        while(tail->next!=NULL) {
+            tail=tail->next;
+        }
+        tail->next=temp;
+        temp->next=NULL;
+        return head;
+    }
+};
+*/
