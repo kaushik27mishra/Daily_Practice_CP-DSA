@@ -39,8 +39,14 @@ int main() {
             hash_map_s[i]=hash_map_s[i]-hash_map_p[i];
         }
         
+        int p_first=0;
+        for(p_first=0;p_first<26;p_first++) {
+            if(hash_map_p[p_first]!=0)
+                break;
+        }
+        
         string res="";
-        for(int i=0;i<26 && i+(int)'a'<=(int)p[0];i++) {
+        for(int i=0;i<26 && i<=p_first;i++) {
             while(hash_map_s[i]>0) {
                 res=res+(char)(i+(int)'a');
                 hash_map_s[i]--;
