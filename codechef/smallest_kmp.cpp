@@ -25,38 +25,45 @@ int main() {
         string p;
         cin>>s; // main string
         cin>>p; // sub string
-        vector<int> hash_map_p(26,0);
-        vector<int> hash_map_s(26,0);
-        for(int i=0;p[i];i++) {
-            hash_map_p[p[i]-'a']++;
-        }
-
+        vector<int> hash_map(26,0);
         for(int i=0;s[i];i++) {
-            hash_map_s[s[i]-'a']++;
+            hash_map[s[i]-'a']++;
         }
 
-        for(int i=0;i<26;i++) {
-            hash_map_s[i]=hash_map_s[i]-hash_map_p[i];
+        for(int i=0;p[i];i++) {
+            hash_map[p[i]-'a']--;
         }
-        
-        int p_first=0;
-        for(p_first=0;p_first<26;p_first++) {
-            if(hash_map_p[p_first]!=0)
+
+        char p_diff=p[0];
+        for(int i=1;i<p.size();i++) {
+            if(p_diff!=p[i]) {
+                p_diff=p[i];
                 break;
+            }
         }
         
         string res="";
-        for(int i=0;i<26 && i<=p_first;i++) {
-            while(hash_map_s[i]>0) {
+        int i;
+        for(i=0;i<26 && i+'a'<p[0];i++) {
+            while(hash_map[i]>0) {
                 res=res+(char)(i+(int)'a');
-                hash_map_s[i]--;
+                hash_map[i]--;
             }
         }
-        res=res+p;
-        for(int i=0;i<26;i++) {
-            while(hash_map_s[i]>0){
+
+        if(p_diff>=p[0]) {
+            while(hash_map[i]>0) {
                 res=res+(char)(i+(int)'a');
-                hash_map_s[i]--;
+                hash_map[i]--;
+            }
+        }
+        
+        res+=p;
+
+        for(int i=0;i<26;i++) {
+            while(hash_map[i]>0){
+                res=res+(char)(i+(int)'a');
+                hash_map[i]--;
             }
         }
         cout<<res<<endl;
