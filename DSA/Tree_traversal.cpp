@@ -59,6 +59,51 @@ void inorderTraversal(BSTNode *root) {
     }
 }
 
+void preorderTraversal(BSTNode *root) {
+    if(root==NULL)
+        return;
+    BSTNode *node=root;
+    stack<BSTNode*>s;
+    while(node!=NULL || !s.empty()) {
+        if(node!=NULL){
+            cout<<node->data<<" ";
+            s.push(node);
+            node=node->left;
+        }
+        else {
+            node = s.top();
+            s.pop();
+            node=node->right;
+        }
+    }
+}
+
+void postorderTraversal(BSTNode *root) {
+    if(root==NULL)
+        return;
+    BSTNode *node=root;
+    stack<BSTNode*> s;
+    stack<BSTNode*> res;
+    while(node!=NULL || !s.empty()) {
+        if(node!=NULL) {
+            s.push(node);
+            res.push(node);
+            node=node->right;
+        }
+        else {
+            node=s.top();
+            s.pop();
+            node=node->left;
+        }
+    }
+
+    while(!res.empty()) {
+        node = res.top();
+        res.pop();
+        cout<<node->data<<" ";
+    }
+}
+
 void preorderTraversalRecurssive(BSTNode *root) {
     if(root==NULL) 
         return;
@@ -104,9 +149,11 @@ int main() {
     root->left->left = new BSTNode(4);
     root->left->right = new BSTNode(5);
     root->right->right = new BSTNode(6);
-    inorderTraversalRecurssive(root);
+    postorderTraversalRecurssive(root);
     cout<<endl;
-    inorderTraversal(root);
+    postorderTraversal(root);
     cout<<endl;
     return 0;
 }
+
+
