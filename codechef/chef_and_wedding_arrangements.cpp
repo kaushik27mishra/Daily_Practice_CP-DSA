@@ -2,8 +2,8 @@
 using namespace std;
 
 #define deb(x) cout<<#x<<" "<<x<<endl;
-#define fo(i,n) for(int i=0;i<n;i++)
-#define Fo(i,k,n) for(int i=k;i<n;i++)
+#define fo(i,n) for(ll i=0;i<n;i++)
+#define Fo(i,k,n) for(ll i=k;i<n;i++)
 #define N 101
 #define ll long long
 #define endl "\n"
@@ -15,40 +15,7 @@ using namespace std;
 #define lb lower_bound
 #define ub upper_bound
 #define all(x) x.begin(), x.end()
-typedef vector<int> vi;
-
-int min_conflicts_table(vector<int> &guests,int tables) {
-    int n = guests.size();
-    int count=0;
-    int start=0;
-    while(tables>1) {
-        unordered_map<int,int> table;
-        while(start<n) {
-            if(table.find(guests[start])==table.end()) {
-                table[guests[start]]=1;
-            }
-            else {
-                break;
-            } 
-            start++;
-        }
-        tables--;
-    }
-
-    unordered_map<int,vector<int>> table;
-    while(start<n) {
-        table[guests[start]].push_back(start+1);
-        start++;
-    }
-
-    for(auto itr : table) {
-        if(itr.second.size()!=1) {
-            count=itr.second.size();
-        }
-    }
-
-    return count;
-}
+typedef vector<ll> vi;
 
 int main() {
     int T;
@@ -56,43 +23,60 @@ int main() {
     while(T--) {
         int n,k;
         cin>>n>>k;
+        vector<ll> guests(n+1,0);
+        for(int i=0;i<n;i++) {  
+            cin>>guests[i];
+        }
 
-        unordered_map<int,vector<int>> family_grp;
-
-        vector<int> guests(n,0);
+        ll conflicts[n+1][n+1]={0};
+        map<ll,ll> family_members;
 
         for(int i=0;i<n;i++) {
-            cin>>guests[i];
-            family_grp[guests[i]].push_back(i+1);
+            family_members.clear();
+            for(int j=i;j<n;j++) {
+                if(j==0) {
+                    conflicts[i][j]=0;
+                }
+                else {
+                    conflicts[i][j]=conflicts[i][j-1];
+                }
+
+                if(family_members.count(guests[j])) {
+                    if(family_members[guests[j]]==1) 
+                        conflicts[i][j]++;
+                    conflicts[i][j]++;
+                }
+                family_members[guests[j]]++;
+            }
         }
 
-        int max_tables=family_grp.size(); 
+        ll t[101][1001]={0};
 
-        vector<int> conflicts(max_tables+1,0);
-
-        for(int i=1;i<=max_tables;i++) {
-            conflicts[i]=min_conflicts_table(guests,i);
-            if(conflicts[i]==0)
-                break;
+        for(int i=0;i<n+1;i++) {
+            t[1][i]=conflicts[0][i-1];
         }
 
-        int res=INT_MAX;
-        for(int i=1;i<=max_tables;i++) {
-            res=min(res,i*k+conflicts[i]);
-            if(conflicts[i]==0)
-                break;
+        for(int i=2;i<=100;i++) {
+            t[i][1]=0;
+        }
+
+        for(int i=2;i<=100;i++) {
+            for(int j=2;j<=n;j++) {
+                ll best=1e18;
+                for(int k=1;k<j;k++) {
+                    best=min(best,t[i-1][k]+conflicts[k][j-1]);
+                }
+                t[i][j]=best;
+            }
+        }
+
+        ll res=1e18;
+        for(int i=1;i<=100;i++) {
+            res=min(res,i*k+t[i][n]);
         }
         cout<<res<<endl;
+
     }
 
     return 0;
 }
-/*
-    we have to minimize the sum of total cost of tables (K*T) + number of guests dissatisfied
-    so we have to first decrease one varible as both can't be minimised at the same time!
-    we will make an array of tables which index corresponds to number of tables and its value correspons to minimum number of arrguments possible
-    now we can easily iterate through the array and find the minimum number
-
-    TODO:-
-    Find a way to count the minimum number of arrguments if there is n tables
-*/
