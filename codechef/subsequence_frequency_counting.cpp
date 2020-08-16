@@ -17,7 +17,27 @@ using namespace std;
 #define all(x) x.begin(), x.end()
 typedef vector<int> vi;
 
-int C[5003][5003] = {0};
+ll C[5003][5003] = {0};
+ll P[1000] = {0};
+
+ll binomialCoeffUtil(int n, int k) 
+{ 
+    ll dp[n+1][k+1]={0};
+    int i, j; 
+  
+    for (i = 0; i <= n; i++) 
+    { 
+        for (j = 0; j <= min(i, k); j++) 
+        { 
+            if (j == 0 || j == i) 
+                dp[i][j] = 1; 
+            else
+                dp[i][j] = (dp[i - 1][j - 1]+dp[i - 1][j])%mod;
+        }
+    } 
+    return dp[n][k];
+}
+
 
 void binomialCoeff(int n, int k) 
 { 
@@ -36,26 +56,12 @@ void binomialCoeff(int n, int k)
   
 }
 
-int power(int x, unsigned int y)  
-{  
-    int res = 1;    
-  
-    x = x % mod;  
-   
-    if (x == 0) return 0;
-  
-    while (y > 0)  
-    {  
-        if (y & 1)  
-            res = (res*x) % mod;  
-  
-        y = y>>1;  
-        x = (x*x) % mod;  
-    }  
-    return res;  
-}  
-
-
+void power(int n) {
+    P[0]=1;
+    for(int i=1;i<=n;i++) {
+        P[i]=(P[i-1]*2)%mod;
+    }
+}
 
 int main() {
     binomialCoeff(5002,5002);
@@ -64,6 +70,7 @@ int main() {
     while(T--) {
         int n;
         cin>>n;
+        power(n);
         vector<int> arr(n,0);
         map<int,int> count;
         for(int i=0;i<n;i++)
@@ -73,33 +80,39 @@ int main() {
         for(auto it : count) {
 
             int number=it.first;
-            int sum=0;
+            ll sum=0;
 
             for(int i=1;i<=it.second;i++) {
 
-                int temp=1;
+                ll temp=1;
 
                 for(auto aux : count) {
 
-                    int choose=0;
+                    ll choose=0;
                     if(aux.first<number) {
                         if(aux.second<i) {
-                            choose=power(2,aux.second);
+                            choose=P[aux.second];
                         }
                         else {
                             for(int j=0;j<i && j<=aux.second;j++) {
-                                choose=(choose+C[aux.second][j])%mod;
+                                if(aux.second<5000 && j<5000)
+                                    choose=(choose+C[aux.second][j])%mod;
+                                else
+                                    choose=(choose+binomialCoeffUtil(aux.second,j))%mod;
                             }
                         }
 
                     }
                     else if(aux.first>number) {
                         if(aux.second<=i) {
-                            choose=power(2,aux.second);
+                            choose=P[aux.second];
                         }
                         else {
                             for(int j=0;j<=i && j<=aux.second;j++) {
-                                choose=(choose+C[aux.second][j])%mod;
+                                if(aux.second<5000 && j<5000)
+                                    choose=(choose+C[aux.second][j])%mod;
+                                else
+                                    choose=(choose+binomialCoeffUtil(aux.second,j))%mod;
                             }
                         }
 
