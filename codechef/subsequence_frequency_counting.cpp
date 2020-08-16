@@ -66,11 +66,10 @@ int main() {
         cin>>n;
         vector<int> arr(n,0);
         map<int,int> count;
-        map<int,bool> shown;
         for(int i=0;i<n;i++)
-            cin>>arr[i], count[arr[i]]++ , shown[arr[i]]=false;
+            cin>>arr[i], count[arr[i]]++;
         
-        map<int,int> res;
+        map<int,int> op;
         for(auto it : count) {
 
             int number=it.first;
@@ -103,26 +102,23 @@ int main() {
                                 choose=(choose+C[aux.second][j])%mod;
                             }
                         }
+
                     }
                     else {
-                        choose=C[it.second][i];
+                        choose=C[aux.second][i];
                     }
+
                     temp=(temp*choose)%mod;
                 }
+
                 sum=(sum+temp)%mod;
             }
 
-            res[number]=sum;
+            op[number]=sum;
         }
 
-        for(int i=0;i<n;i++) {
-            if(!shown[arr[i]]) {
-                cout<<res[arr[i]]<<" ";
-                shown[arr[i]]=true;
-            }
-            else {
-                cout<<0<<" ";
-            }
+        for(int i=1;i<=n;i++) {
+            cout<<op[i]<<" ";
         }
         cout<<endl;
     }
