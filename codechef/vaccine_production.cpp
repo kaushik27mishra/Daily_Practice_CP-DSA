@@ -17,14 +17,11 @@ using namespace std;
 #define all(x) x.begin(), x.end()
 typedef vector<int> vi;
 
-void fun(int *first,int *second) {
-    *first+=*first;
-    *second+=*second;
-}
-
 int main() {
-    int list[2] = {3,5};
-    fun(&list[0],&list[1]);
-    cout<<list[0]<<" "<<list[1]<<endl;
+    
+    int d1,v1,d2,v2,p;
+    cin>>d1>>v1>>d2>>v2>>p;
+    cout<<(p+d1*v1+d2*v2)/(v1+v2)<<endl;
+
     return 0;
 }

@@ -4,7 +4,7 @@ public:
         int n = arr.size();
         int maxOfLeft[n];
         int minOfRight[n];
-        maxOfLeft[0]=arr[1];
+        maxOfLeft[0]=arr[0];
         for(int i=1;i<n;i++) {
             maxOfLeft[i]=max(maxOfLeft[i-1],arr[i]);
         }
